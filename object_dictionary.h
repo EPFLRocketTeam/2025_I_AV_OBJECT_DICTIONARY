@@ -127,10 +127,10 @@ inline void printObjectDictionary(const ObjectDictionary &obj)
     Serial.print(F("Main N2O: ")); Serial.println(isnan(obj.main_N2O) ? F("N/A") : String(obj.main_N2O, 3));
 
     // Homing
-    Serial.print(F("Main Valves Homing: "));      Serial.println(obj.main_valves_homing ? F("true") : F("false"));
-    Serial.print(F("Main Valves Homing Done: ")); Serial.println(obj.main_valves_homing_done ? F("true") : F("false"));
-    Serial.print(F("Gimbal Homing: "));          Serial.println(obj.gimbal_homing ? F("true") : F("false"));
-    Serial.print(F("Gimbal Homing Done: "));     Serial.println(obj.gimbal_homing_done ? F("true") : F("false"));
+    Serial.print(F("Main Valves Homing: "));      Serial.println(obj.ETH_main_valves_homing ? F("true") : F("false"));
+    Serial.print(F("N2O Main Valves Homing: "));   Serial.println(obj.N2O_main_valves_homing ? F("true") : F("false"));
+    Serial.print(F("ETH Main Valves Homing Done: ")); Serial.println(obj.ETH_main_valves_homing_done ? F("true") : F("false"));
+    Serial.print(F("N2O Main Valves Homing Done: ")); Serial.println(obj.N2O_main_valves_homing_done ? F("true") : F("false"));
 
     // Sequence
     Serial.print(F("Sequence Finished: ")); Serial.println(obj.sequence_finished ? F("true") : F("false"));

@@ -4,7 +4,6 @@
     Organization: EPFL Rocket Team
     Version : 1.0
 */
-
 #ifndef COM_PROP_BOARD_H
 #define COM_PROP_BOARD_H
 
@@ -16,9 +15,15 @@
 #define AV_RS232 Serial3
 #define PROP_BOARD_ID 46
 
+#if defined(ICARUS_PROP)
+void begin_com_avionics(uint32_t baudrate = 115200);
+void write_avionics(ObjectDictionary &objDict);
+void read_avionics(ObjectDictionary &objDict);
+#elif defined(ICARUS_AV) 
 void begin_com_prop_board(uint32_t baudrate = 115200);
 void write_prop_board(ObjectDictionary &objDict);
 void read_prop_board(ObjectDictionary &objDict);
+#endif
 
 typedef struct __attribute__((__packed__)) {
     uint16_t main_ETH = 0;       // [0;100]
@@ -29,8 +34,8 @@ typedef struct __attribute__((__packed__)) {
     uint16_t gimbal_x = 0;      // [-15.0;15.0]
     uint16_t gimbal_y = 0;      // [-15.0;15.0]
 
-    uint8_t main_valves_homing = false;
-    uint8_t gimbal_homing = false;
+    uint8_t ETH_main_valves_homing = false;
+    uint8_t N2O_main_valves_homing = false;
 
     uint8_t vent_ETH = false;
     uint8_t vent_N2O = false;
@@ -48,8 +53,8 @@ typedef struct __attribute__((__packed__)) {
     uint16_t pressure_inj_N2O = 0;  // [0.0;50.0]
     uint16_t chamber_pressure = 0;  // [0.0;50.0]
 
-    uint8_t main_valves_homing_done = false;
-    uint8_t gimbal_homing_done = false;
+    uint8_t ETH_main_valves_homing_done = false;
+    uint8_t N2O_main_valves_homing_done = false;
 
     uint16_t temp_N2O = 0;          // [-70.0;40.0]
 
