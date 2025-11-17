@@ -59,8 +59,12 @@ struct ObjectDictionary
 
     bool sequence_finished = false;
 
-    bool main_valves_homing = false;
-    bool main_valves_homing_done = false;
+    bool ETH_main_valves_homing = false;
+    bool ETH_main_valves_homing_done = false;
+
+    bool N2O_main_valves_homing = false;
+    bool N2O_main_valves_homing_done = false;
+
     bool gimbal_homing = false;
     bool gimbal_homing_done = false;
     
