@@ -2,6 +2,7 @@
 #define OBJECT_DICTIONARY_H
 
 #include <Arduino.h>
+#include <sstream>
 
 enum class FSM 
 {
@@ -15,7 +16,7 @@ enum class FSM
     ABORT
 };
 
-// Define a struct for your dictionary
+// Define a struct for your dictionary, if modified, update printObjectDictionary(), 
 struct ObjectDictionary 
 {
     float gyro_x = NAN;
@@ -78,6 +79,9 @@ struct ObjectDictionary
     FSM hopper_state = FSM::IDLE;
 };
 
+#ifdef __cplusplus
+const size_t object_dictionary_size = sizeof(ObjectDictionary);
+#endif 
 // Create a global instance
 extern ObjectDictionary objDict;
 
@@ -143,6 +147,47 @@ inline void printObjectDictionary(const ObjectDictionary &obj)
     Serial.print(F("CMD Tare Pressures: "));             Serial.println(obj.cmd_tare_pressures ? F("true") : F("false"));
 
     Serial.println(F("============================"));
+}
+
+inline std::string objectDictionaryCSV(const ObjectDictionary &obj) {
+    std::ostringstream ss;
+    ss  << fixed16_to_float(obj.gyro_x) << "," << fixed16_to_float(obj.gyro_y) << "," << fixed16_to_float(obj.gyro_z) << ","
+        << fixed16_to_float(obj.acc_x) << "," << fixed16_to_float(obj.acc_y) << "," << fixed16_to_float(obj.acc_z) << ","
+        << fixed16_to_float(obj.baro) << ","
+        << fixed16_to_float(obj.kalman_yaw) << "," << fixed16_to_float(obj.kalman_pitch) << "," << fixed16_to_float(obj.kalman_roll) << ","
+        << fixed16_to_float(obj.gimbal_x) << "," << fixed16_to_float(obj.gimbal_y) << ","
+        << fixed16_to_float(obj.hv_voltage) << "," << fixed16_to_float(obj.lv_voltage) << ","
+        << fixed16_to_float(obj.chamber_pressure) << "," << fixed16_to_float(obj.pressure_ETH) << "," << fixed16_to_float(obj.pressure_N2O) << ","
+        << fixed16_to_float(obj.pressure_inj_ETH) << "," << fixed16_to_float(obj.pressure_inj_N2O) << "," << fixed16_to_float(obj.temp_N2O) << ","
+        << (bool)obj.vent_ETH << "," << (bool)obj.vent_N2O << "," << (bool)obj.sol_N2 << ","
+        << (int)obj.main_ETH << "," << (int)obj.main_N2O << ","
+        << (bool)obj.sol_ETH << "," << (bool)obj.sol_N2O << ","
+        << (bool)obj.igniter << ","
+        << (bool)obj.sequence_finished << ","
+        << (bool)obj.ETH_main_valves_homing << "," << (bool)obj.ETH_main_valves_homing_done << ","
+        << (bool)obj.N2O_main_valves_homing << "," << (bool)obj.N2O_main_valves_homing_done << ","
+        << (bool)obj.gimbal_homing << "," << (bool)obj.gimbal_homing_done << ","
+        << (bool)obj.cmd_idle << "," << (bool)obj.cmd_arm << "," << (bool)obj.cmd_launch << ","
+        << (bool)obj.cmd_abort << "," << (bool)obj.cmd_tare_orientation << "," << (bool)obj.cmd_tare_pressures << ","
+        << (int)obj.hopper_state;
+    return ss.str();
+}
+
+inline std::string objectDictionaryCSVHeader() {
+    return "gyro_x,gyro_y,gyro_z,"
+           "acc_x,acc_y,acc_z,"
+           "baro,"
+           "kalman_yaw,kalman_pitch,kalman_roll,"
+           "gimbal_x,gimbal_y,"
+           "hv_voltage,lv_voltage,"
+           "chamber_pressure,pressure_ETH,pressure_N2O,pressure_inj_ETH,pressure_inj_N2O,temp_N2O,"
+           "vent_ETH,vent_N2O,sol_N2,"
+           "main_ETH,main_N2O,sol_ETH,sol_N2O,igniter,sequence_finished,"
+           "eth_main_valves_homing,eth_main_valves_homing_done,"
+           "n2o_main_valves_homing,n2o_main_valves_homing_done,"
+           "gimbal_homing,gimbal_homing_done,"
+           "cmd_idle,cmd_arm,cmd_launch,cmd_abort,cmd_tare_orientation,cmd_tare_pressures,"
+           "hopper_state";
 }
 
 #endif // OBJECT_DICTIONARY_H
