@@ -1,7 +1,7 @@
 #ifndef OBJECT_DICTIONARY_H
 #define OBJECT_DICTIONARY_H
 
-#include <Arduino.h>
+//#include <Arduino.h>
 #include <sstream>
 
 enum class FSM 
