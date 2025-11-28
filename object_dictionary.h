@@ -16,6 +16,38 @@ enum class FSM
     ABORT
 };
 
+#ifndef FLOAT_TO_FIXED16
+#define FLOAT_TO_FIXED16
+static uint16_t float_to_fixed16(float value) 
+{
+    // Scale by 2^6 (because 6 fractional bits)
+    int32_t scaled = (int32_t)roundf(value * (1 << 6));
+
+    // Range check: signed 16-bit fixed Q9.6 covers -32768/64 to 32767/64
+    if (scaled > 0x7FFF) {   // clamp to max positive
+        scaled = 0x7FFF;
+    } else if (scaled < -0x8000) { // clamp to min negative
+        scaled = -0x8000;
+    }
+
+    // Store as uint16_t, but bit pattern is signed two’s complement
+    return (uint16_t)(scaled & 0xFFFF);
+}
+#endif
+
+#ifndef FIXED16_TO_FLOAT
+#define FIXED16_TO_FLOAT
+static float fixed16_to_float(uint16_t fixed) 
+{
+    // Interpret the bits as a signed 16-bit integer
+    int16_t signed_val = (int16_t)fixed;
+
+    // Divide by 2^6 (64) to restore fractional scaling
+    return (float)signed_val / (1 << 6);
+}
+#endif
+#pragma pack(push, 1)
+
 // Define a struct for your dictionary, if modified, update printObjectDictionary(), 
 struct ObjectDictionary 
 {
