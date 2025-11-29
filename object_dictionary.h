@@ -186,6 +186,19 @@ inline void printObjectDictionary(const ObjectDictionary &obj)
     Serial.print(F("Main ETH: ")); Serial.println(isnan(obj.main_ETH) ? F("N/A") : String(obj.main_ETH, 3));
     Serial.print(F("Main N2O: ")); Serial.println(isnan(obj.main_N2O) ? F("N/A") : String(obj.main_N2O, 3));
 
+    Serial.print(F("Current ETH Main Valve: ")); Serial.println(isnan(obj.current_ETH_main_valve) ? F("N/A") : String(obj.current_ETH_main_valve, 3));
+    Serial.print(F("Current N2O Main Valve: ")); Serial.println(isnan(obj.current_N2O_main_valve) ? F("N/A") : String(obj.current_N2O_main_valve, 3));
+
+    Serial.print(F("Position ETH Main Valve: ")); Serial.println(isnan(obj.position_ETH_main_valve) ? F("N/A") : String(obj.position_ETH_main_valve, 3));
+    Serial.print(F("Position N2O Main Valve: ")); Serial.println(isnan(obj.position_N2O_main_valve) ? F("N/A") : String(obj.position_N2O_main_valve, 3));
+
+    Serial.print(F("Gimbal X Current: ")); Serial.println(isnan(obj.gimbal_x_current) ? F("N/A") : String(obj.gimbal_x_current, 3));
+    Serial.print(F("Gimbal Y Current: ")); Serial.println(isnan(obj.gimbal_y_current) ? F("N/A") : String(obj.gimbal_y_current, 3));
+
+    Serial.print(F("Position Gimbal X: ")); Serial.println(isnan(obj.position_gimbal_x) ? F("N/A") : String(obj.position_gimbal_x, 3));
+    Serial.print(F("Position Gimbal Y: ")); Serial.println(isnan(obj.position_gimbal_y) ? F("N/A") : String(obj.position_gimbal_y, 3));
+
+
     // Homing
     Serial.print(F("ETH Main Valves Homing: "));      Serial.println(obj.ETH_main_valves_homing ? F("true") : F("false"));
     Serial.print(F("N2O Main Valves Homing: "));   Serial.println(obj.N2O_main_valves_homing ? F("true") : F("false"));
@@ -212,13 +225,13 @@ inline std::string objectDictionaryCSV(const ObjectDictionary &obj) {
         << fixed16_to_float(obj.acc_x) << "," << fixed16_to_float(obj.acc_y) << "," << fixed16_to_float(obj.acc_z) << ","
         << fixed16_to_float(obj.baro) << ","
         << fixed16_to_float(obj.kalman_yaw) << "," << fixed16_to_float(obj.kalman_pitch) << "," << fixed16_to_float(obj.kalman_roll) << ","
-        << fixed16_to_float(obj.gimbal_x) << "," << fixed16_to_float(obj.gimbal_y) << ","
+        << fixed16_to_float(obj.gimbal_x) << "," << fixed16_to_float(obj.gimbal_x_current) << "," << fixed16_to_float(obj.position_gimbal_x) << "," << fixed16_to_float(obj.gimbal_y) << "," << fixed16_to_float(obj.gimbal_y_current) << "," << fixed16_to_float(obj.position_gimbal_y) << ","
         << fixed16_to_float(obj.hv_voltage) << "," << fixed16_to_float(obj.lv_voltage) << ","
         << fixed16_to_float(obj.chamber_pressure) << "," << fixed16_to_float(obj.pressure_tank_ETH) << "," << fixed16_to_float(obj.pressure_tank_N2O) << "," 
         << fixed16_to_float(obj.pressure_line_ETH) << "," << fixed16_to_float(obj.pressure_line_N2O) << ","
         << fixed16_to_float(obj.pressure_inj_ETH) << "," << fixed16_to_float(obj.pressure_inj_N2O) << "," << fixed16_to_float(obj.temp_N2O) << ","
         << (bool)obj.vent_ETH << "," << (bool)obj.vent_N2O << "," << (bool)obj.sol_N2 << ","
-        << (int)obj.main_ETH << "," << (int)obj.main_N2O << ","
+        << (int)obj.main_ETH << "," << fixed16_to_float(obj.current_ETH_main_valve) << "," << fixed16_to_float(obj.position_ETH_main_valve) << "," << (int)obj.main_N2O << "," << fixed16_to_float(obj.current_N2O_main_valve) << "," << fixed16_to_float(obj.position_N2O_main_valve) << ","
         << (bool)obj.sol_ETH << "," << (bool)obj.sol_N2O << ","
         << (bool)obj.igniter << ","
         << (bool)obj.sequence_finished << ","
@@ -236,7 +249,7 @@ inline std::string objectDictionaryCSVHeader() {
            "acc_x,acc_y,acc_z,"
            "baro,"
            "kalman_yaw,kalman_pitch,kalman_roll,"
-           "gimbal_x,gimbal_y,"
+           "gimbal_x,gimbal_x_current,position_gimbal_x,gimbal_y,gimbal_y_current,position_gimbal_y,"
            "hv_voltage,lv_voltage,"
            "chamber_pressure,pressure_tank_ETH,pressure_tank_N2O,pressure_inj_ETH,pressure_inj_N2O,temp_N2O,pressure_line_ETH,pressure_line_N2O,"
            "vent_ETH,vent_N2O,sol_N2,"
