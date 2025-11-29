@@ -1,8 +1,11 @@
 #ifndef OBJECT_DICTIONARY_H
 #define OBJECT_DICTIONARY_H
 
-//#include <Arduino.h>
+
 #include <sstream>
+#ifdef ARDUINO
+#include <Arduino.h>
+#endif // ARDUINO
 
 enum class FSM 
 {
@@ -113,10 +116,12 @@ struct ObjectDictionary
 
 #ifdef __cplusplus
 const size_t object_dictionary_size = sizeof(ObjectDictionary);
-#endif 
+#endif
+
 // Create a global instance
 extern ObjectDictionary objDict;
 
+#ifdef ARDUINO
 inline void printObjectDictionary(const ObjectDictionary &obj) 
 {
     Serial.println(F("===== ObjectDictionary ====="));
@@ -180,6 +185,7 @@ inline void printObjectDictionary(const ObjectDictionary &obj)
 
     Serial.println(F("============================"));
 }
+#endif // ARDUINO
 
 inline std::string objectDictionaryCSV(const ObjectDictionary &obj) {
     std::ostringstream ss;
