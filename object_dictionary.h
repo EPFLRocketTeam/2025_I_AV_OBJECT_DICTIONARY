@@ -75,10 +75,25 @@ struct ObjectDictionary
     float lv_voltage = NAN;
 
     float chamber_pressure = NAN;
-    float pressure_ETH = NAN;
-    float pressure_N2O = NAN;
+    float pressure_tank_ETH = NAN;
+    float pressure_tank_N2O = NAN;
     float pressure_inj_ETH = NAN;
     float pressure_inj_N2O = NAN;
+    float pressure_line_ETH = NAN;
+    float pressure_line_N2O = NAN;
+
+    float current_ETH_main_valve = NAN; // current as in Amps
+    float current_N2O_main_valve = NAN;
+
+    float position_ETH_main_valve = NAN;
+    float position_N2O_main_valve = NAN;
+
+    float gimbal_x_current = NAN; // current as in Amps
+    float gimbal_y_current = NAN;
+    
+    float position_gimbal_x = NAN;
+    float position_gimbal_y = NAN;
+
     float temp_N2O = NAN;
 
     bool vent_ETH = true;
@@ -103,6 +118,8 @@ struct ObjectDictionary
 
     bool gimbal_homing = false;
     bool gimbal_homing_done = false;
+
+    bool thrust_control = false;
     
     bool cmd_idle = false;
     bool cmd_arm = false;
@@ -151,10 +168,12 @@ inline void printObjectDictionary(const ObjectDictionary &obj)
 
     // Pressures
     Serial.print(F("Chamber Pressure: ")); Serial.println(isnan(obj.chamber_pressure) ? F("N/A") : String(obj.chamber_pressure, 3));
-    Serial.print(F("Pressure ETH: "));     Serial.println(isnan(obj.pressure_ETH) ? F("N/A") : String(obj.pressure_ETH, 3));
-    Serial.print(F("Pressure N2O: "));     Serial.println(isnan(obj.pressure_N2O) ? F("N/A") : String(obj.pressure_N2O, 3));
+    Serial.print(F("Pressure Tank ETH: ")); Serial.println(isnan(obj.pressure_tank_ETH) ? F("N/A") : String(obj.pressure_tank_ETH, 3));
+    Serial.print(F("Pressure Tank N2O: ")); Serial.println(isnan(obj.pressure_tank_N2O) ? F("N/A") : String(obj.pressure_tank_N2O, 3));
     Serial.print(F("Pressure Inj ETH: ")); Serial.println(isnan(obj.pressure_inj_ETH) ? F("N/A") : String(obj.pressure_inj_ETH, 3));
     Serial.print(F("Pressure Inj N2O: ")); Serial.println(isnan(obj.pressure_inj_N2O) ? F("N/A") : String(obj.pressure_inj_N2O, 3));
+    Serial.print(F("Pressure Line ETH: ")); Serial.println(isnan(obj.pressure_line_ETH) ? F("N/A") : String(obj.pressure_line_ETH, 3));
+    Serial.print(F("Pressure Line N2O: ")); Serial.println(isnan(obj.pressure_line_N2O) ? F("N/A") : String(obj.pressure_line_N2O, 3));
     Serial.print(F("Temp N2O: "));         Serial.println(isnan(obj.temp_N2O) ? F("N/A") : String(obj.temp_N2O, 3));
 
     // Valves / Solenoids
@@ -195,7 +214,8 @@ inline std::string objectDictionaryCSV(const ObjectDictionary &obj) {
         << fixed16_to_float(obj.kalman_yaw) << "," << fixed16_to_float(obj.kalman_pitch) << "," << fixed16_to_float(obj.kalman_roll) << ","
         << fixed16_to_float(obj.gimbal_x) << "," << fixed16_to_float(obj.gimbal_y) << ","
         << fixed16_to_float(obj.hv_voltage) << "," << fixed16_to_float(obj.lv_voltage) << ","
-        << fixed16_to_float(obj.chamber_pressure) << "," << fixed16_to_float(obj.pressure_ETH) << "," << fixed16_to_float(obj.pressure_N2O) << ","
+        << fixed16_to_float(obj.chamber_pressure) << "," << fixed16_to_float(obj.pressure_tank_ETH) << "," << fixed16_to_float(obj.pressure_tank_N2O) << "," 
+        << fixed16_to_float(obj.pressure_line_ETH) << "," << fixed16_to_float(obj.pressure_line_N2O) << ","
         << fixed16_to_float(obj.pressure_inj_ETH) << "," << fixed16_to_float(obj.pressure_inj_N2O) << "," << fixed16_to_float(obj.temp_N2O) << ","
         << (bool)obj.vent_ETH << "," << (bool)obj.vent_N2O << "," << (bool)obj.sol_N2 << ","
         << (int)obj.main_ETH << "," << (int)obj.main_N2O << ","
@@ -218,7 +238,7 @@ inline std::string objectDictionaryCSVHeader() {
            "kalman_yaw,kalman_pitch,kalman_roll,"
            "gimbal_x,gimbal_y,"
            "hv_voltage,lv_voltage,"
-           "chamber_pressure,pressure_ETH,pressure_N2O,pressure_inj_ETH,pressure_inj_N2O,temp_N2O,"
+           "chamber_pressure,pressure_tank_ETH,pressure_tank_N2O,pressure_inj_ETH,pressure_inj_N2O,temp_N2O,pressure_line_ETH,pressure_line_N2O,"
            "vent_ETH,vent_N2O,sol_N2,"
            "main_ETH,main_N2O,sol_ETH,sol_N2O,igniter,sequence_finished,"
            "eth_main_valves_homing,eth_main_valves_homing_done,"
