@@ -222,27 +222,27 @@ inline void printObjectDictionary(const ObjectDictionary &obj)
 inline std::string objectDictionaryCSV(const ObjectDictionary &obj)
 {
     std::ostringstream ss;
-    ss  << obj.gyro_x << "," << obj.gyro_y << "," << obj.gyro_z << ","
-        << obj.acc_x << "," << obj.acc_y << "," << obj.acc_z << ","
-        << obj.baro << ","
-        << obj.kalman_yaw << "," << obj.kalman_pitch << "," << obj.kalman_roll << ","
-        << obj.gimbal_x << "," << obj.gimbal_x_current << "," << obj.position_gimbal_x << ","
-        << obj.gimbal_y << "," << obj.gimbal_y_current << "," << obj.position_gimbal_y << ","
-        << obj.hv_voltage << "," << obj.lv_voltage << ","
-        << obj.chamber_pressure << "," << obj.pressure_tank_ETH << "," << obj.pressure_tank_N2O << "," 
-        << obj.pressure_line_ETH << "," << obj.pressure_line_N2O << ","
-        << obj.pressure_inj_ETH << "," << obj.pressure_inj_N2O << "," << obj.temp_N2O << ","
-        << obj.vent_ETH << "," << obj.vent_N2O << "," << obj.sol_N2 << ","
-        << obj.main_ETH << "," << obj.current_ETH_main_valve << "," << obj.position_ETH_main_valve << "," 
-        << obj.main_N2O << "," << obj.current_N2O_main_valve << "," << obj.position_N2O_main_valve << ","
-        << obj.sol_ETH << "," << obj.sol_N2O << ","
-        << obj.igniter << "," << obj.sequence_finished << ","
-        << obj.ETH_main_valves_homing << "," << obj.ETH_main_valves_homing_done << ","
-        << obj.N2O_main_valves_homing << "," << obj.N2O_main_valves_homing_done << ","
-        << obj.gimbal_homing << "," << obj.gimbal_homing_done << ","
-        << obj.cmd_idle << "," << obj.cmd_arm << "," << obj.cmd_launch << "," << obj.cmd_abort << ","
-        << obj.cmd_tare_orientation << "," << obj.cmd_tare_pressures << ","
-        << obj.hopper_state;
+    ss  << float(obj.gyro_x) << "," << float(obj.gyro_y) << "," << float(obj.gyro_z) << ","
+        << float(obj.acc_x) << "," << float(obj.acc_y) << "," << float(obj.acc_z) << ","
+        << float(obj.baro) << ","
+        << float(obj.kalman_yaw) << "," << float(obj.kalman_pitch) << "," << float(obj.kalman_roll) << ","
+        << float(obj.gimbal_x) << "," << float(obj.gimbal_x_current) << "," << float(obj.position_gimbal_x) << ","
+        << float(obj.gimbal_y) << "," << float(obj.gimbal_y_current) << "," << float(obj.position_gimbal_y) << ","
+        << float(obj.hv_voltage) << "," << float(obj.lv_voltage) << ","
+        << float(obj.chamber_pressure) << "," << float(obj.pressure_tank_ETH) << "," << float(obj.pressure_tank_N2O) << "," 
+        << float(obj.pressure_line_ETH) << "," << float(obj.pressure_line_N2O) << ","
+        << float(obj.pressure_inj_ETH) << "," << float(obj.pressure_inj_N2O) << "," << float(obj.temp_N2O) << ","
+        << float(obj.vent_ETH) << "," << float(obj.vent_N2O) << "," << float(obj.sol_N2) << ","
+        << float(obj.main_ETH) << "," << float(obj.current_ETH_main_valve) << "," << float(obj.position_ETH_main_valve) << "," 
+        << float(obj.main_N2O) << "," << float(obj.current_N2O_main_valve) << "," << float(obj.position_N2O_main_valve) << ","
+        << float(obj.sol_ETH) << "," << float(obj.sol_N2O) << ","
+        << float(obj.igniter) << "," << float(obj.sequence_finished) << ","
+        << float(obj.ETH_main_valves_homing) << "," << float(obj.ETH_main_valves_homing_done) << ","
+        << float(obj.N2O_main_valves_homing) << "," << float(obj.N2O_main_valves_homing_done) << ","
+        << float(obj.gimbal_homing) << "," << float(obj.gimbal_homing_done) << ","
+        << float(obj.cmd_idle) << "," << float(obj.cmd_arm) << "," << float(obj.cmd_launch) << "," << float(obj.cmd_abort) << ","
+        << float(obj.cmd_tare_orientation) << "," << float(obj.cmd_tare_pressures) << ","
+        << float(obj.hopper_state);
     return ss.str();
 }
 
