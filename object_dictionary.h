@@ -221,8 +221,8 @@ inline void printObjectDictionary(const ObjectDictionary &obj)
 
 inline std::string objectDictionaryCSV(const ObjectDictionary &obj)
 {
-    ss << std::fixed << std::setprecision(9);
     std::ostringstream ss;
+    ss << std::fixed << std::setprecision(9);
     ss  << float(obj.gyro_x) << "," << float(obj.gyro_y) << "," << float(obj.gyro_z) << ","
         << float(obj.acc_x) << "," << float(obj.acc_y) << "," << float(obj.acc_z) << ","
         << float(obj.baro) << ","
