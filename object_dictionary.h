@@ -52,6 +52,8 @@ static float fixed16_to_float(uint16_t fixed)
 #pragma pack(push, 1)
 
 // Define a struct for your dictionary, if modified, update printObjectDictionary(), 
+// On 04.12.2025 the object dictionary was 152 bytes long and with a baudrate of 500000
+// beetwen the teensy and the rpi, the logging frequency reach a maximum 200Hz.
 struct ObjectDictionary 
 {
     float gyro_x = NAN;
