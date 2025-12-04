@@ -21,7 +21,7 @@ void write_avionics(ObjectDictionary &objDict);
 void read_avionics(ObjectDictionary &objDict);
 #elif defined(ICARUS_AV) 
 void begin_com_prop_board(uint32_t baudrate = 115200);
-void write_prop_board(ObjectDictionary &objDict);
+bool write_prop_board(ObjectDictionary &objDict);
 void read_prop_board(ObjectDictionary &objDict);
 #endif
 
