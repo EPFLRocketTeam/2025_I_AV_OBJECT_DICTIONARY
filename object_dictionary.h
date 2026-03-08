@@ -216,6 +216,17 @@ inline void printObjectDictionary(const ObjectDictionary &obj)
     Serial.print(F("CMD Abort: "));            Serial.println(obj.cmd_abort ? F("true") : F("false"));
     Serial.print(F("CMD Tare Orientation: "));        Serial.println(obj.cmd_tare_orientation ? F("true") : F("false"));
     Serial.print(F("CMD Tare Pressures: "));             Serial.println(obj.cmd_tare_pressures ? F("true") : F("false"));
+    Serial.print(F("Thrust Control: ")); Serial.println(obj.thrust_control ? F("true") : F("false"));
+    Serial.print(F("Hopper State: ")); Serial.println(
+        obj.hopper_state == FSM::IDLE ? F("IDLE") :
+        obj.hopper_state == FSM::GIMBAL_HOMING ? F("GIMBAL_HOMING") :
+        obj.hopper_state == FSM::MAIN_VALVES_HOMING ? F("MAIN_VALVES_HOMING") :
+        obj.hopper_state == FSM::TARE_ORIENTATION ? F("TARE_ORIENTATION") :
+        obj.hopper_state == FSM::TARE_PRESSURES ? F("TARE_PRESSURES") :
+        obj.hopper_state == FSM::ARMED ? F("ARMED") :
+        obj.hopper_state == FSM::LAUNCH ? F("LAUNCH") :
+        obj.hopper_state == FSM::ABORT ? F("ABORT") : F("UNKNOWN")
+    );
 
     Serial.println(F("============================"));
 }
