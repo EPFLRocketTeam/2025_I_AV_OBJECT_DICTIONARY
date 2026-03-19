@@ -291,7 +291,9 @@ inline std::string objectDictionaryCSVHeader() {
            "gimbal_homing,gimbal_homing_done,"
            "cmd_idle,cmd_arm,cmd_launch,cmd_abort,"
            "cmd_tare_orientation,cmd_tare_pressures,"
-           "hopper_state";
+           "hopper_state,"
+           "thrust_control,"
+           "thrust,mass_flow_eth,mass_flow_n2o";
 }
 
 #endif // OBJECT_DICTIONARY_H
