@@ -122,8 +122,10 @@ struct ObjectDictionary
     bool gimbal_homing_done = false;
 
     bool thrust_control = false;
-    
+
     float thrust = 0.0; // [N]
+    float mass_flow_eth = 0.0; // [kg/s]
+    float mass_flow_n2o = 0.0; // [kg/s]
 
     bool cmd_idle = false;
     bool cmd_arm = false;
