@@ -87,8 +87,8 @@ struct ObjectDictionary
     float current_ETH_main_valve = NAN; // current as in Amps
     float current_N2O_main_valve = NAN;
 
-    float position_ETH_main_valve = NAN;
-    float position_N2O_main_valve = NAN;
+    float position_ETH_main_valve = NAN; // feedback value
+    float position_N2O_main_valve = NAN; // feedback value
 
     float gimbal_x_current = NAN; // current as in Amps
     float gimbal_y_current = NAN;
@@ -102,8 +102,8 @@ struct ObjectDictionary
     bool vent_N2O = true;
     bool sol_N2 = false;
 
-    float main_ETH = 0.0;
-    float main_N2O = 0.0;
+    float main_ETH = 0.0; // command values
+    float main_N2O = 0.0; // command value
 
     bool sol_ETH = false;
     bool sol_N2O = false;
@@ -231,6 +231,9 @@ inline void printObjectDictionary(const ObjectDictionary &obj)
         obj.hopper_state == FSM::LAUNCH ? F("LAUNCH") :
         obj.hopper_state == FSM::ABORT ? F("ABORT") : F("UNKNOWN")
     );
+    Serial.print(F("Thrust: ")); Serial.println(isnan(obj.thrust) ? F("N/A") : String(obj.thrust, 3));
+    Serial.print(F("Mass Flow ETH: ")); Serial.println(isnan(obj.mass_flow_eth) ? F("N/A") : String(obj.mass_flow_eth, 3));
+    Serial.print(F("Mass Flow N2O: ")); Serial.println(isnan(obj.mass_flow_n2o) ? F("N/A") : String(obj.mass_flow_n2o, 3));
 
     Serial.println(F("============================"));
 }
@@ -260,7 +263,9 @@ inline std::string objectDictionaryCSV(const ObjectDictionary &obj)
         << float(obj.gimbal_homing) << "," << float(obj.gimbal_homing_done) << ","
         << float(obj.cmd_idle) << "," << float(obj.cmd_arm) << "," << float(obj.cmd_launch) << "," << float(obj.cmd_abort) << ","
         << float(obj.cmd_tare_orientation) << "," << float(obj.cmd_tare_pressures) << ","
-        << float(obj.hopper_state);
+        << float(obj.hopper_state) << ","
+        << float(obj.thrust_control) << ","
+        << float(obj.thrust) << "," << float(obj.mass_flow_eth) << "," << float(obj.mass_flow_n2o);
     return ss.str();
 }
 
