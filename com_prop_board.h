@@ -44,6 +44,8 @@ typedef struct __attribute__((__packed__)) {
     uint8_t sol_N2 = false;
 
     uint16_t thrust = 0; // [0.0; MAX_THRUST]
+    uint16_t mass_flow_eth = 0.0; // [kg/s]
+    uint16_t mass_flow_n2o = 0.0; // [kg/s]
 } prop_board_downlink_packet;
 
 #ifdef __cplusplus
