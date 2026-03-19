@@ -123,6 +123,8 @@ struct ObjectDictionary
 
     bool thrust_control = false;
     
+    float thrust = 0.0; // [N]
+
     bool cmd_idle = false;
     bool cmd_arm = false;
     bool cmd_launch = false;
