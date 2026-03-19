@@ -42,6 +42,8 @@ typedef struct __attribute__((__packed__)) {
     uint8_t vent_ETH = false;
     uint8_t vent_N2O = false;
     uint8_t sol_N2 = false;
+
+    uint16_t thrust = 0; // [0.0; MAX_THRUST]
 } prop_board_downlink_packet;
 
 #ifdef __cplusplus
@@ -61,7 +63,6 @@ typedef struct __attribute__((__packed__)) {
     uint16_t ETH_main_valve_position = 0;   // [0.0; 100.0]
     uint16_t gimbal_x_position = 0;    // [0.0; 100.0]
     uint16_t gimbal_y_position = 0;    // [0.0; 100.0]
-
 
     uint8_t ETH_main_valves_homing_done = false;
     uint8_t N2O_main_valves_homing_done = false;
