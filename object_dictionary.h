@@ -134,6 +134,21 @@ struct ObjectDictionary
     bool cmd_tare_orientation = false;
     bool cmd_tare_pressures = false;
 
+
+    float pid_eth_mass_flow_measure = 0.0;
+    float pid_eth_mass_flow_error = 0.0;
+    float pid_eth_mass_flow_error_integration = 0.0;
+    float pid_eth_mass_flow_error_derivative = 0.0;
+    float pid_eth_position_valve_cmd_feed_forward = 0.0;
+    float pid_eth_position_valve_cmd_pid = 0.0;
+
+    float pid_n2o_mass_flow_measure = 0.0;
+    float pid_n2o_mass_flow_error = 0.0;
+    float pid_n2o_mass_flow_error_integration = 0.0;
+    float pid_n2o_mass_flow_error_derivative = 0.0;
+    float pid_n2o_position_valve_cmd_feed_forward = 0.0;
+    float pid_n2o_position_valve_cmd_pid = 0.0;
+
     FSM hopper_state = FSM::IDLE;
 };
 
@@ -234,6 +249,19 @@ inline void printObjectDictionary(const ObjectDictionary &obj)
     Serial.print(F("Thrust: ")); Serial.println(isnan(obj.thrust) ? F("N/A") : String(obj.thrust, 3));
     Serial.print(F("Mass Flow ETH: ")); Serial.println(isnan(obj.mass_flow_eth) ? F("N/A") : String(obj.mass_flow_eth, 3));
     Serial.print(F("Mass Flow N2O: ")); Serial.println(isnan(obj.mass_flow_n2o) ? F("N/A") : String(obj.mass_flow_n2o, 3));
+    Serial.print(F("PID ETH Mass Flow Measure: ")); Serial.println(isnan(obj.pid_eth_mass_flow_measure) ? F("N/A") : String(obj.pid_eth_mass_flow_measure, 3));
+    Serial.print(F("PID ETH Mass Flow Error: ")); Serial.println(isnan(obj.pid_eth_mass_flow_error) ? F("N/A") : String(obj.pid_eth_mass_flow_error, 3));
+    Serial.print(F("PID ETH Mass Flow Error Integration: ")); Serial.println(isnan(obj.pid_eth_mass_flow_error_integration) ? F("N/A") : String(obj.pid_eth_mass_flow_error_integration, 3));
+    Serial.print(F("PID ETH Mass Flow Error Derivative: ")); Serial.println(isnan(obj.pid_eth_mass_flow_error_derivative) ? F("N/A") : String(obj.pid_eth_mass_flow_error_derivative, 3));
+    Serial.print(F("PID ETH Position Valve Cmd Feed Forward: ")); Serial.println(isnan(obj.pid_eth_position_valve_cmd_feed_forward) ? F("N/A") : String(obj.pid_eth_position_valve_cmd_feed_forward, 3));
+    Serial.print(F("PID ETH Position Valve Cmd PID: ")); Serial.println(isnan(obj.pid_eth_position_valve_cmd_pid) ? F("N/A") : String(obj.pid_eth_position_valve_cmd_pid, 3));
+    Serial.print(F("PID N2O Mass Flow Measure: ")); Serial.println(isnan(obj.pid_n2o_mass_flow_measure) ? F("N/A") : String(obj.pid_n2o_mass_flow_measure, 3));
+    Serial.print(F("PID N2O Mass Flow Error: ")); Serial.println(isnan(obj.pid_n2o_mass_flow_error) ? F("N/A") : String(obj.pid_n2o_mass_flow_error, 3));
+    Serial.print(F("PID N2O Mass Flow Error Integration: ")); Serial.println(isnan(obj.pid_n2o_mass_flow_error_integration) ? F("N/A") : String(obj.pid_n2o_mass_flow_error_integration, 3));
+    Serial.print(F("PID N2O Mass Flow Error Derivative: ")); Serial.println(isnan(obj.pid_n2o_mass_flow_error_derivative) ? F("N/A") : String(obj.pid_n2o_mass_flow_error_derivative, 3));
+    Serial.print(F("PID N2O Position Valve Cmd Feed Forward: ")); Serial.println(isnan(obj.pid_n2o_position_valve_cmd_feed_forward) ? F("N/A") : String(obj.pid_n2o_position_valve_cmd_feed_forward, 3));
+    Serial.print(F("PID N2O Position Valve Cmd PID: ")); Serial.println(isnan(obj.pid_n2o_position_valve_cmd_pid) ? F("N/A") : String(obj.pid_n2o_position_valve_cmd_pid, 3));
+
 
     Serial.println(F("============================"));
 }
@@ -265,7 +293,11 @@ inline std::string objectDictionaryCSV(const ObjectDictionary &obj)
         << float(obj.cmd_tare_orientation) << "," << float(obj.cmd_tare_pressures) << ","
         << float(obj.hopper_state) << ","
         << float(obj.thrust_control) << ","
-        << float(obj.thrust) << "," << float(obj.mass_flow_eth) << "," << float(obj.mass_flow_n2o);
+        << float(obj.thrust) << "," << float(obj.mass_flow_eth) << "," << float(obj.mass_flow_n2o) << ","
+        << float(obj.pid_eth_mass_flow_measure) << "," << float(obj.pid_eth_mass_flow_error) << "," << float(obj.pid_eth_mass_flow_error_integration) << "," << float(obj.pid_eth_mass_flow_error_derivative) << ","
+        << float(obj.pid_eth_position_valve_cmd_feed_forward) << "," << float(obj.pid_eth_position_valve_cmd_pid) << ","
+        << float(obj.pid_n2o_mass_flow_measure) << "," << float(obj.pid_n2o_mass_flow_error) << "," << float(obj.pid_n2o_mass_flow_error_integration) << "," << float(obj.pid_n2o_mass_flow_error_derivative) << ","
+        << float(obj.pid_n2o_position_valve_cmd_feed_forward) << "," << float(obj.pid_n2o_position_valve_cmd_pid);
     return ss.str();
 }
 
@@ -293,7 +325,12 @@ inline std::string objectDictionaryCSVHeader() {
            "cmd_tare_orientation,cmd_tare_pressures,"
            "hopper_state,"
            "thrust_control,"
-           "thrust,mass_flow_eth,mass_flow_n2o";
+           "thrust,mass_flow_eth,mass_flow_n2o,"
+           "pid_eth_mass_flow_measure,pid_eth_mass_flow_error,pid_eth_mass_flow_error_integration,pid_eth_mass_flow_error_derivative,"
+           "pid_eth_position_valve_cmd_feed_forward,pid_eth_position_valve_cmd_pid,"
+           "pid_n2o_mass_flow_measure,pid_n2o_mass_flow_error,pid_n2o_mass_flow_error_integration,pid_n2o_mass_flow_error_derivative,"
+           "pid_n2o_position_valve_cmd_feed_forward,pid_n2o_position_valve_cmd_pid"
+           ;
 }
 
 #endif // OBJECT_DICTIONARY_H
