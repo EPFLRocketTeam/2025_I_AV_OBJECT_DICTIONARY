@@ -65,8 +65,8 @@ typedef struct __attribute__((__packed__)) {
 
     uint16_t N2O_main_valve_position = 0;   // [0.0; 100.0]
     uint16_t ETH_main_valve_position = 0;   // [0.0; 100.0]
-    uint16_t N2O_main_current = 0; // current as in Amps
-    uint16_t ETH_main_current = 0;
+    uint16_t N2O_main_valve_current = 0; // current as in Amps
+    uint16_t ETH_main_valve_current = 0;
     uint16_t gimbal_x_position = 0;    // [0.0; 100.0]
     uint16_t gimbal_y_position = 0;    // [0.0; 100.0]
 
