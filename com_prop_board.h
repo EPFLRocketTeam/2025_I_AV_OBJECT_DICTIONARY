@@ -47,19 +47,7 @@ typedef struct __attribute__((__packed__)) {
     uint16_t mass_flow_eth = 0.0; // [kg/s]
     uint16_t mass_flow_n2o = 0.0; // [kg/s]
 
-    uint16_t pid_eth_mass_flow_measure = 0.0;
-    uint16_t pid_eth_mass_flow_error = 0.0;
-    uint16_t pid_eth_mass_flow_error_integration = 0.0;
-    uint16_t pid_eth_mass_flow_error_derivative = 0.0;
-    uint16_t pid_eth_position_valve_cmd_feed_forward = 0.0;
-    uint16_t pid_eth_position_valve_cmd_pid = 0.0;
 
-    uint16_t pid_n2o_mass_flow_measure = 0.0;
-    uint16_t pid_n2o_mass_flow_error = 0.0;
-    uint16_t pid_n2o_mass_flow_error_integration = 0.0;
-    uint16_t pid_n2o_mass_flow_error_derivative = 0.0;
-    uint16_t pid_n2o_position_valve_cmd_feed_forward = 0.0;
-    uint16_t pid_n2o_position_valve_cmd_pid = 0.0;
 } prop_board_downlink_packet;
 
 #ifdef __cplusplus
@@ -83,7 +71,21 @@ typedef struct __attribute__((__packed__)) {
     uint8_t ETH_main_valves_homing_done = false;
     uint8_t N2O_main_valves_homing_done = false;
     
+    uint16_t pid_eth_mass_flow_measure = 0.0;
+    uint16_t pid_eth_mass_flow_error = 0.0;
+    uint16_t pid_eth_mass_flow_error_integration = 0.0;
+    uint16_t pid_eth_mass_flow_error_derivative = 0.0;
+    uint16_t pid_eth_position_valve_cmd_feed_forward = 0.0;
+    uint16_t pid_eth_position_valve_cmd_pid = 0.0;
 
+    uint16_t pid_n2o_mass_flow_measure = 0.0;
+    uint16_t pid_n2o_mass_flow_error = 0.0;
+    uint16_t pid_n2o_mass_flow_error_integration = 0.0;
+    uint16_t pid_n2o_mass_flow_error_derivative = 0.0;
+    uint16_t pid_n2o_position_valve_cmd_feed_forward = 0.0;
+    uint16_t pid_n2o_position_valve_cmd_pid = 0.0;
+
+    
     uint16_t temp_N2O = 0;          // [-70.0;40.0]
 
     uint16_t hv_voltage = 0;        // [0.0;26.0]
