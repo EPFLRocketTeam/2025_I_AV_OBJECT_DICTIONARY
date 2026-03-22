@@ -63,8 +63,8 @@ typedef struct __attribute__((__packed__)) {
     uint16_t pressure_line_N2O = 0;  // [0.0;50.0]
     uint16_t chamber_pressure = 0;  // [0.0;50.0]
 
-    uint16_t N2O_main_valve_position = 0;   // [0.0; 100.0]
-    uint16_t ETH_main_valve_position = 0;   // [0.0; 100.0]
+    uint32_t N2O_main_valve_position = 0;   // [0.0; 100.0]
+    uint32_t ETH_main_valve_position = 0;   // [0.0; 100.0]
     uint16_t N2O_main_valve_current = 0; // current as in Amps
     uint16_t ETH_main_valve_current = 0;
     uint16_t gimbal_x_position = 0;    // [0.0; 100.0]
