@@ -3,6 +3,11 @@
 
 
 #include <sstream>
+#include <stdint.h>
+#include <string.h>
+#if __cplusplus >= 202002L
+#include <bit>
+#endif
 #ifdef ARDUINO
 #include <Arduino.h>
 #endif // ARDUINO
@@ -47,6 +52,31 @@ static float fixed16_to_float(uint16_t fixed)
 
     // Divide by 2^6 (64) to restore fractional scaling
     return (float)signed_val / (1 << 6);
+}
+#endif
+
+#ifndef FLOAT_U32_BIT_CAST
+#define FLOAT_U32_BIT_CAST
+static uint32_t float_to_u32_bits(float value)
+{
+#if __cplusplus >= 202002L
+    return std::bit_cast<uint32_t>(value);
+#else
+    uint32_t bits = 0;
+    memcpy(&bits, &value, sizeof(bits));
+    return bits;
+#endif
+}
+
+static float u32_bits_to_float(uint32_t bits)
+{
+#if __cplusplus >= 202002L
+    return std::bit_cast<float>(bits);
+#else
+    float value = 0.0f;
+    memcpy(&value, &bits, sizeof(value));
+    return value;
+#endif
 }
 #endif
 #pragma pack(push, 1)
